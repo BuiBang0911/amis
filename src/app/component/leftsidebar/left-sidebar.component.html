@@ -1,0 +1,26 @@
+<div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full" data-sidebar-position="fixed" data-header-position="fixed">
+    <!-- Sidebar bên trái -->
+    <div class="left-sidebar bg-dark text-white p-3 vh-100" style="min-width: 250px;">
+        <h4>Menu</h4>
+        <ul class="nav flex-column">
+            <a class="nav-link">
+                Home
+            </a>
+            <a class="nav-link" routerLink="/about" routerLinkActive="active" ariaCurrentWhenActive="page">
+                About
+            </a>
+            <a class="nav-link" routerLink="/employee" routerLinkActive="active" ariaCurrentWhenActive="page">
+                Employee
+            </a>
+            <a class="nav-link">
+                Contact
+            </a>
+        </ul>
+    </div>
+    <div class="body-wrapper ">
+        <div class="app-header">
+            <router-outlet />
+
+        </div>
+    </div>
+</div>

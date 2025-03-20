@@ -1,0 +1,112 @@
+<div class="container pt-3 pb-5 w-100 m-auto" >
+    <h1>Employee</h1>
+    <div class="d-flex justify-content-end container">
+        <a class="btn btn-primary ms-ato border" (click)="openCreateEmployeeModal()">
+            Add Employee
+        </a>
+        <create-employee #createEmployee></create-employee>
+    </div>
+    <div class="container mt-4">
+        <table class="table table-bordered table-striped mb-0 w-100">
+            <thead class="table-dark">
+                <tr class="text-center">
+                    <th class="col">Tên</th>
+                    <th class="col">Mã</th>
+                    <th class="col">Giới tính</th>
+                    <th class="col">Ngày sinh</th>
+                    <th class="col">CMND/CCCD</th>
+                    <th class="col">Chức vụ</th>
+                    <th class="col">Số tài khoản</th>
+                    <th class="col">Ngân hàng</th>
+                    <th class="col">Chi nhánh</th>
+                    <th class="col">Chức năng</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let employee of employees; index as idx">
+                  <td>{{ employee.name }}</td>
+                  <td>{{ employee.code }}</td>
+                  <td>{{ employee.sex }}</td>
+                  <td>{{ employee.birthday }}</td>
+                  <td>{{ employee.identificationCard }}</td>
+                  <td>{{ employee.position }}</td>
+                  <td>{{ employee.accountNumber }}</td>
+                  <td>{{ employee.bankName }}</td>
+                  <td>{{ employee.bankBranch }}</td>
+                  <td ngbDropdown class="text-center">
+                    <a class="" id="dropdownMenu" ngbDropdownToggle>Sửa</a>
+                    <div ngbDropdownMenu aria-labelledby="dropdownMenu">
+                        <button ngbDropdownItem (click)="Duplicate(employee.id)">Nhân bản</button>
+                        <button ngbDropdownItem (click)="Delete(employee.id)">Xóa</button>
+                        <button ngbDropdownItem (click)="openUpdateEmployeeModal(employee)">Sửa</button>
+                        <update-employee #updateEmployee [employee]="currentEmployee"/>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>              
+        </table>
+    </div>
+    <div class="container d-flex">
+        <div>
+            Tổng số: <span class="fw-bolder">{{totalRecords}}</span> bản ghi
+        </div>
+        <div ngbDropdown class="d-flex mt-3 justify-content-end ms-auto">
+            <button class="btn btn-outline-primary" id="dropdownMenu" ngbDropdownToggle>
+              {{pageSize}} bản ghi trên 1 trang
+            </button>
+            <div ngbDropdownMenu aria-labelledby="dropdownMenu">
+              <button ngbDropdownItem (click)="setPageSize(10)">10 bản ghi trên 1 trang</button>
+              <button ngbDropdownItem (click)="setPageSize(20)">20 bản ghi trên 1 trang</button>
+              <button ngbDropdownItem (click)="setPageSize(50)">50 bản ghi trên 1 trang</button>
+              <button ngbDropdownItem (click)="setPageSize(100)">100 bản ghi trên 1 trang</button>
+            </div>
+            <div class="d-flex">
+                <a class="btn px-2" (click)="prePageNumber()">Trước</a>
+                <div *ngIf="totalPages <= 4; else TPM4">
+                    <a class="btn" *ngFor="let number of pageArray" [ngClass]="{'border fw-bold': number === pageNumber}" (click)="nextToPageNumber(number)">{{number}}</a>
+                </div>
+                <ng-template #TPM4>
+                    <div *ngIf="pageNumber <=2; else PNT3">
+                        <a class="btn" [ngClass]="{'border fw-bold': 1 === pageNumber}" (click)="nextToPageNumber(1)">1</a>
+                        <a class="btn" [ngClass]="{'border fw-bold': 2 === pageNumber}" (click)="nextToPageNumber(2)">2</a>
+                        <a class="btn" [ngClass]="{'border fw-bold': 3 === pageNumber}" (click)="nextToPageNumber(3)">3</a>
+                        ...
+                        <a class="btn" [ngClass]="{'border fw-bold': totalPages === pageNumber}" (click)="nextToPageNumber(totalPages)">{{totalPages}}</a>
+                    </div>
+                    <ng-template #PNT3>
+                        <div *ngIf="pageNumber + 2 >= totalPages; else MPN">
+                            <a class="btn" [ngClass]="{'border fw-bold': 1 === pageNumber}" (click)="nextToPageNumber(1)">1</a>
+                            ...
+                            <a class="btn" [ngClass]="{'border fw-bold': totalPages-2 === pageNumber}" (click)="nextToPageNumber(totalPages-2)">{{totalPages-2}}</a>
+                            <a class="btn" [ngClass]="{'border fw-bold': totalPages-1 === pageNumber}" (click)="nextToPageNumber(totalPages-1)">{{totalPages-1}}</a>
+                            <a class="btn" [ngClass]="{'border fw-bold': totalPages === pageNumber}" (click)="nextToPageNumber(totalPages)">{{totalPages}}</a>
+                        </div>
+                        <ng-template #MPN>
+                            <a class="btn" [ngClass]="{'border fw-bold': 1 === pageNumber}" (click)="nextToPageNumber(1)">1</a>
+                            ...
+                            <a class="btn fw-bold" >{{pageNumber}}</a>
+                            <a class="btn" (click)="nextPageNumber()">{{pageNumber + 1}}</a>
+                            ...
+                            <a class="btn" (click)="nextToPageNumber(totalPages)">{{totalPages}}</a>
+                        </ng-template>
+                    </ng-template>
+                </ng-template>
+                <a class="btn px-2" (click)="nextPageNumber()">Sau</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .col {
+        min-width: 100px;
+    }
+
+    th td {
+        padding: 10px;
+    }
+
+    a {
+        text-decoration: none;
+    }
+</style>

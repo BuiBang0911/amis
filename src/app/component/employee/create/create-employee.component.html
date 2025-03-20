@@ -1,0 +1,124 @@
+<ng-template class="" #createEmployeeModal let-modal >
+    <div class="modal-header">
+        <h5 class="modal-title">Thông tin nhân viên</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" (click)="CloseModal()"></button>
+    </div>
+    <form #employeeForm="ngForm" (submit)="onSubmit()">
+        <div class="modal-body">
+        <div class="row">
+            <div class="col-6">
+                <div class="row mb-1">
+                    <div class="col-4 pe-0">
+                        <label for="">Mã <span class="text-danger">*</span></label>
+                        <input type="text" [ngModelOptions]="{standalone: true}" [(ngModel)]="employee.code" name="code" class="w-100" value="111" required>
+                    </div>
+                    <div class="col-8">
+                        <label for="">Tên <span class="text-danger">*</span></label>
+                        <input type="text" [ngModelOptions]="{standalone: true}" [(ngModel)]="employee.name" name="name"  class="w-100" required>
+                    </div>
+                </div>
+                <div class="" style="margin-bottom: 6px;">
+                    <label for="">Đơn vị <span class="text-danger">*</span></label>
+                    <select class="w-100" [ngModelOptions]="{standalone: true}" [(ngModel)]="employee.department" name="department" id="">
+                        <option value="" selected disabled>Chọn chức danh</option>
+                        <option value="AP001">Nhân viên</option>
+                        <option value="AP002">Công nhân</option>
+                        <option value="AP003">Trưởng ca</option>
+                        <option value="AP003">Trưởng nhóm</option>
+                    </select>
+                </div>
+                <div class="mb-1">
+                    <label for="">Chức danh</label>
+                    <input type="text" [ngModelOptions]="{standalone: true}" [(ngModel)]="employee.position" name="position"  class="w-100">
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="row mb-1">
+                    <div class="col-5 pe-0">
+                        <label for="" class="">Ngày sinh</label>
+                        <input type="date" [ngModelOptions]="{standalone: true}" [(ngModel)]="employee.birthday" name="birthday" class="w-100" id="" required>
+                    </div>
+                    <div class="col-7">
+                        <label for="">Giới tính</label>
+                        <div class="">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" [ngModelOptions]="{standalone: true}" [(ngModel)]="employee.sex" name="sex" value="male" checked>
+                                <label class="form-check-label" for="male" style="font-weight: normal; font-size: medium;">Nam</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" [ngModelOptions]="{standalone: true}" [(ngModel)]="employee.sex" name="sex" value="female">
+                                <label class    ="form-check-label" for="female" style="font-weight: normal; font-size: medium;">Nữ</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" [ngModelOptions]="{standalone: true}" [(ngModel)]="employee.sex" name="sex" value="other">
+                                <label class="form-check-label" for="other" style="font-weight: normal; font-size: medium;">Khác</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-1">
+                    <div class="col-7">
+                        <label for="">Số CMND</label>
+                        <input class="w-100" [ngModelOptions]="{standalone: true}" [(ngModel)]="employee.identificationCard" name="identificationCard" type="text" name="" id="">
+                    </div>
+                    <div class="col-5">
+                        <label for="">Ngày cấp</label>
+                        <input type="date" [ngModelOptions]="{standalone: true}" [(ngModel)]="employee.dateOfIssue" name="dateOfIssue" class="w-100">
+                    </div>
+                </div>
+                <div class="">
+                    <label for="">Nơi cấp</label>
+                    <input type="text" [ngModelOptions]="{standalone: true}" [(ngModel)]="employee.placeOfIssue" name="placeOfIssue" class="w-100">
+                </div>
+            </div>
+        </div>
+        <div class="mt-4 mb-2">
+            <label for="">Địa chỉ</label>
+            <input type="text" [ngModelOptions]="{standalone: true}" [(ngModel)]="employee.address" name="address" class="w-100">
+        </div>
+        <div class="row">
+            <div class="col-3 me-0">
+                <label for="">ĐT di động</label>
+                <input type="text" [ngModelOptions]="{standalone: true}" [(ngModel)]="employee.phoneNumber" name="phoneNumber" class="w-100">
+            </div>
+            <div class="col-3 ps-0">
+                <label for="">ĐT cố định</label>
+                <input type="text" [ngModelOptions]="{standalone: true}" [(ngModel)]="employee.landlineNumber" name="landlineNumber" class="w-100">
+            </div>
+            <div class="col-3 ps-0">
+                <label for="">Email</label>
+                <input type="text" [ngModelOptions]="{standalone: true}" [(ngModel)]="employee.email" name="email" class="w-100">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3 me-0">
+                <label for="">Tài khoản ngân hàng</label>
+                <input type="text" [ngModelOptions]="{standalone: true}" [(ngModel)]="employee.accountNumber" name="accountNumber" class="w-100">
+            </div>
+            <div class="col-3 ps-0">
+                <label for="">Tên ngân hàng</label>
+                <input type="text" [ngModelOptions]="{standalone: true}" [(ngModel)]="employee.bankName" name="bankName" class="w-100">
+            </div>
+            <div class="col-3 ps-0">
+                <label for="">Chi nhánh</label>
+                <input type="text" [ngModelOptions]="{standalone: true}" [(ngModel)]="employee.bankBranch" name="bankBranch" class="w-100">
+            </div>
+        </div>
+        </div>
+        <div class="modal-footer">
+            <a class="btn border my-0" style="width: 80px;" (click)="CloseModal()">Hủy</a>
+            <div class="ms-auto my-0">
+                <a class="btn border my-0 me-1" style="width: 80px" (click)="SaveModal()">Cất</a>
+                <button type="submit" class="btn btn-primary my-0" >Cất và thêm</button>
+            </div>
+        </div>
+    </form>
+</ng-template>
+
+<style>
+    @media (min-width: 992px) {
+    .modal-lg, .modal-xl {
+        width: 1000px !important;
+    }
+    }
+</style>
