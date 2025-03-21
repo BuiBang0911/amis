@@ -6,6 +6,7 @@ import { CreateEmployeeComponent } from "../create/create-employee.component";
 import { NgbDropdownModule, NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { UtilsService } from "../../../utils/utils.service";
 import { UpdateEmployeeComponent } from "../update-employee/update-employee.component";
+import { ConfirmDialogComponent } from "../../common/confirm-dialog/confirm-dialog.component";
 
 @Component({
     selector:'app-employee',
@@ -116,14 +117,28 @@ export class AppEmployeeComponent implements OnInit{
   }
 
   Delete(id: number): void {
-    this.apiService.DeleteEmployee(id).subscribe({
-      next: (response) => {
-        console.log('Tạo thành công:', response);
-        this.fetchData();
+    const modalRef = this.modalService.open(ConfirmDialogComponent);
+    modalRef.componentInstance.message = 'Bạn có chắc chắn muốn xóa?'; // Truyền thông báo tùy chỉnh
+    console.log(modalRef);
+    modalRef.result.then(
+      (result) => {
+        if (result === 'confirm') {
+          console.log('Xác nhận xóa');
+          this.apiService.DeleteEmployee(id).subscribe({
+            next: (response) => {
+              console.log('Tạo thành công:', response);
+              this.fetchData();
+            },
+              error: (error) => {
+              console.error('Lỗi khi tạo:', error);
+            }
+          });
+        }
       },
-        error: (error) => {
-        console.error('Lỗi khi tạo:', error);
+      (reason) => {
+        console.log('Hủy bỏ', reason);
       }
-    });
+    );
+    
   }
 }

@@ -3,18 +3,23 @@ import { EmployeeResponse } from "../../../interface/employeeResponse.interface"
 import { FormsModule } from "@angular/forms";
 import { ApiService } from "../../../services/api.service";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
+import { CommonModule } from "@angular/common";
+import { ConfirmDialogComponent } from "../../common/confirm-dialog/confirm-dialog.component";
 
 @Component ({
     selector: 'create-employee',
     templateUrl: './create-employee.component.html',
     standalone: true,
     imports: [
-        FormsModule
+        FormsModule,
+        CommonModule
     ]
 })
 
 export class CreateEmployeeComponent implements AfterViewInit{
     @ViewChild('createEmployeeModal', { static: false }) modalElement!: ElementRef<any>;
+
+    isSubmit: boolean = false;
 
     constructor(private apiService: ApiService, private modalService: NgbModal) {}
     
@@ -77,18 +82,36 @@ export class CreateEmployeeComponent implements AfterViewInit{
     }
 
     SaveModal() {
+        console.log(this.employee.birthday);
         this.modalService.dismissAll();
     }
 
-    onSubmit(): void {
-        this.apiService.CreateEmployee(this.employee).subscribe({
-            next: (response) => {
-                this.SaveModal();
-                console.log('Tạo thành công:', response);
+    onSubmit(form: any): void {
+        if (form.invalid) {
+            console.log('invalid form');
+            this.isSubmit = true;
+            return;
+        }
+        var modalRef = this.modalService.open(ConfirmDialogComponent);
+        modalRef.componentInstance.message = 'Bạn có chắc chắn muốn thêm?';
+        modalRef.result.then(
+            (result) => {
+                if(result === 'confirm') {
+                    this.apiService.CreateEmployee(this.employee).subscribe({
+                        next: (response) => {
+                            this.SaveModal();
+                            console.log('Tạo thành công:', response);
+                        },
+                        error: (error) => {
+                        console.error('Lỗi khi tạo:', error);
+                        }
+                    });
+                    this.isSubmit = false;
+                }
             },
-            error: (error) => {
-            console.error('Lỗi khi tạo:', error);
+            (reason) => {
+                console.log('Hủy bỏ', reason);
             }
-        });
+        )
     }
 }

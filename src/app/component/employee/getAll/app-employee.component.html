@@ -15,7 +15,8 @@
                     <th class="col">Giới tính</th>
                     <th class="col">Ngày sinh</th>
                     <th class="col">CMND/CCCD</th>
-                    <th class="col">Chức vụ</th>
+                    <th class="col">Chức danh</th>
+                    <th class="col">Tên đơn vị</th>
                     <th class="col">Số tài khoản</th>
                     <th class="col">Ngân hàng</th>
                     <th class="col">Chi nhánh</th>
@@ -27,9 +28,10 @@
                   <td>{{ employee.name }}</td>
                   <td>{{ employee.code }}</td>
                   <td>{{ employee.sex }}</td>
-                  <td>{{ employee.birthday }}</td>
+                  <td>{{ employee.birthday | date:'dd/MM/yyyy' }}</td>
                   <td>{{ employee.identificationCard }}</td>
                   <td>{{ employee.position }}</td>
+                  <td>{{ employee.department }}</td>
                   <td>{{ employee.accountNumber }}</td>
                   <td>{{ employee.bankName }}</td>
                   <td>{{ employee.bankBranch }}</td>
@@ -108,5 +110,10 @@
 
     a {
         text-decoration: none;
+    }
+
+    td {
+        font-size: smaller;
+        color: #333;
     }
 </style>

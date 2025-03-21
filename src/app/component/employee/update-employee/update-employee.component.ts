@@ -3,13 +3,16 @@ import { EmployeeResponse } from "../../../interface/employeeResponse.interface"
 import { FormsModule } from "@angular/forms";
 import { ApiService } from "../../../services/api.service";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
+import { CommonModule } from "@angular/common";
+import { ConfirmDialogComponent } from "../../common/confirm-dialog/confirm-dialog.component";
 
 @Component ({
     selector: 'update-employee',
     templateUrl: './update-employee.component.html',
     standalone: true,
     imports: [
-        FormsModule
+        FormsModule,
+        CommonModule
     ]
 })
 
@@ -17,35 +20,19 @@ export class UpdateEmployeeComponent implements AfterViewInit{
     @ViewChild('updateEmployeeModal', { static: false }) modalElement!: ElementRef<any>;
     @Input() employee!: any;
 
+    isSubmit: boolean = false;
+
     constructor(private apiService: ApiService, private modalService: NgbModal) {}
     
     ngAfterViewInit(): void {
         if (this.modalElement?.nativeElement) {
+            console.log(this.employee.birthday);
             this.modalService.open(this.modalElement.nativeElement, { size: 'lg', centered: true });
           } else {
             console.error("Modal element not found!");
           }
     }
-    
-    // employee: EmployeeResponse = {  
-    //     id: 0,
-    //     name: "",
-    //     code: "",
-    //     sex: "", 
-    //     birthday: "",
-    //     identificationCard: "",
-    //     position: "",
-    //     accountNumber: "",
-    //     bankName: "",
-    //     bankBranch: "",
-    //     email: "", 
-    //     phoneNumber: "", 
-    //     placeOfIssue: "", 
-    //     landlineNumber: "", 
-    //     dateOfIssue: "", 
-    //     department: "", 
-    //     address: ""
-    // };
+
 
     openModal() {
         if (!this.modalElement) {
@@ -65,15 +52,32 @@ export class UpdateEmployeeComponent implements AfterViewInit{
         this.modalService.dismissAll();
     }
 
-    onSubmit(): void {
-        this.apiService.UpdateEmployee(this.employee.id, this.employee).subscribe({
-            next: (response) => {
-                this.SaveModal();
-                console.log('Tạo thành công:', response);
+    onSubmit(form: any): void {
+        if (form.invalid) {
+            console.log('invalid form');
+            this.isSubmit = true;
+            return;
+        }
+        var modalRef = this.modalService.open(ConfirmDialogComponent);
+        modalRef.componentInstance.message = 'Bạn có chắc chắn muốn thêm?';
+        modalRef.result.then(
+            (result) => {
+                if(result === 'confirm') {
+                    this.apiService.UpdateEmployee(this.employee.id, this.employee).subscribe({
+                        next: (response) => {
+                            this.SaveModal();
+                            console.log('Tạo thành công:', response);
+                        },
+                        error: (error) => {
+                        console.error('Lỗi khi tạo:', error);
+                        }
+                    });
+                    this.isSubmit = false;
+                }
             },
-            error: (error) => {
-            console.error('Lỗi khi tạo:', error);
+            (reason) => {
+                console.log('Hủy bỏ', reason);
             }
-        });
+        )
     }
 }
