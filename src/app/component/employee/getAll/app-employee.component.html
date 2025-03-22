@@ -6,6 +6,12 @@
         </a>
         <create-employee #createEmployee></create-employee>
     </div>
+    <div class="d-flex justify-content-end container my-2">
+        <div class="border text-center" >
+            <input class="border-0 px-1" type="text" [(ngModel)]="searchQuery" (keydown.enter)="onSearch()"  style="height: 24px;">
+            <a class="btn" (click)="onSearch()">x</a>
+        </div>
+    </div>
     <div class="container mt-4">
         <table class="table table-bordered table-striped mb-0 w-100">
             <thead class="table-dark">

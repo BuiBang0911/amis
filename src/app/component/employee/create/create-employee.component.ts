@@ -5,6 +5,7 @@ import { ApiService } from "../../../services/api.service";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { CommonModule } from "@angular/common";
 import { ConfirmDialogComponent } from "../../common/confirm-dialog/confirm-dialog.component";
+import { WarningModalComponent } from "../../common/warning-modal/warning-modal.component";
 
 @Component ({
     selector: 'create-employee',
@@ -18,17 +19,36 @@ import { ConfirmDialogComponent } from "../../common/confirm-dialog/confirm-dial
 
 export class CreateEmployeeComponent implements AfterViewInit{
     @ViewChild('createEmployeeModal', { static: false }) modalElement!: ElementRef<any>;
+    @ViewChild('codeInputElement', { static: false })
+    set codeInputElement(element: ElementRef<HTMLInputElement>) {
+        if(element) {
+          element.nativeElement.focus()
+        }
+     }
+    
+
 
     isSubmit: boolean = false;
+    messageError: string = "";
+
 
     constructor(private apiService: ApiService, private modalService: NgbModal) {}
+
     
     ngAfterViewInit(): void {
         if (this.modalElement?.nativeElement) {
             this.modalService.open(this.modalElement.nativeElement, { size: 'lg', centered: true });
-          } else {
-            console.error("Modal element not found!");
-          }
+        } else {
+            console.error("Modal element not found!!!");
+        }
+
+        
+        // console.log(this._inputElement)
+        // if (this._inputElement) {
+        //     this._inputElement.nativeElement.focus();
+        //   } else {
+        //     console.error('Không tìm thấy phần tử #_inputElement');
+        //   }
     }
     
     employee: EmployeeResponse = {  
@@ -55,8 +75,11 @@ export class CreateEmployeeComponent implements AfterViewInit{
         if (!this.modalElement) {
             console.error("Modal element not found!");
             return;
-          }
-          this.modalService.open(this.modalElement, { size: 'lg', centered: true });
+        }
+            this.modalService.open(this.modalElement, { size: 'lg', centered: true });
+        // console.log(this._inputElement)
+
+        // this._inputElement.nativeElement.focus();
 
     }
 
@@ -100,10 +123,15 @@ export class CreateEmployeeComponent implements AfterViewInit{
                     this.apiService.CreateEmployee(this.employee).subscribe({
                         next: (response) => {
                             this.SaveModal();
+                            this.messageError = '';
                             console.log('Tạo thành công:', response);
                         },
-                        error: (error) => {
-                        console.error('Lỗi khi tạo:', error);
+                        error: (err) => {
+                            console.error('Lỗi khi tạo:', err);
+                            this.messageError = err.error.message;
+                            var modalWarning = this.modalService.open(WarningModalComponent);
+                            console.log(err.error.message)
+                            modalWarning.componentInstance.message = this.messageError;
                         }
                     });
                     this.isSubmit = false;

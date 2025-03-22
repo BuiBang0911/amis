@@ -10,7 +10,7 @@
                 <div class="row mb-1">
                     <div class="col-4 pe-0 ">
                         <label for="code">Mã <span class="text-danger">*</span></label>
-                        <input type="text"  [(ngModel)]="employee.code" id="code" name="code" class="w-100" #code="ngModel" required>
+                        <input #codeInputElement type="text"  [(ngModel)]="employee.code" id="code" name="code" class="w-100" #code="ngModel" required>
                         <div *ngIf="isSubmit || (code.invalid && (code.dirty || code.touched))" class="text-center position-relative">
                             <div class="error-input" *ngIf="code.hasError('required')">Mã không được để trống.</div>
                         </div>

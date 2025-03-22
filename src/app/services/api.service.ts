@@ -35,4 +35,9 @@ export class ApiService {
     console.log(data);
     return this.http.put<any>(`${this.apiUrlBase}/Employee/${id}`, data)
   }
+
+  SearchEmployees(query: string, pageSize: number, pageNumber: number): Observable<any> {
+    console.log(`${this.apiUrlBase}/Employee/search?code=${query}&PageNumber=${pageNumber}&PageSize=${pageSize}`)
+    return this.http.get<any>(`${this.apiUrlBase}/Employee/search?code=${query}&PageNumber=${pageNumber}&PageSize=${pageSize}`);
+  }
 }

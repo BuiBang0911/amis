@@ -19,6 +19,12 @@ import { ConfirmDialogComponent } from "../../common/confirm-dialog/confirm-dial
 export class UpdateEmployeeComponent implements AfterViewInit{
     @ViewChild('updateEmployeeModal', { static: false }) modalElement!: ElementRef<any>;
     @Input() employee!: any;
+    @ViewChild('codeInputElement', { static: false })
+    set codeInputElement(element: ElementRef<HTMLInputElement>) {
+        if(element) {
+          element.nativeElement.focus()
+        }
+     }
 
     isSubmit: boolean = false;
 
