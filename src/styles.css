@@ -8,7 +8,7 @@ a:hover {
 }
 
 .body-wrapper {
-    width: calc(100% -270px);
+    width: calc(100% - 270px);
     position: relative;
 }
 
@@ -73,18 +73,18 @@ a:hover {
     }
     
     #main-wrapper[data-layout="vertical"][data-header-position="fixed"] .app-header {
-        width: calc(100% - 270px);
+        width: calc(100% - 200px);
     }
     
     #main-wrapper[data-layout="vertical"][data-sidebartype="full"] .body-wrapper {
-        margin-left: 270px;
+        margin-left: 200px;
     }
 }
 
 @media (max-width: 1199px) {
     #main-wrapper[data-layout="vertical"][data-sidebartype="full"] .left-sidebar,
     #main-wrapper[data-layout="vertical"][data-sidebartype="mini-sidebar"] .left-sidebar {
-        left: -270px;
+        left: -200px;
     }
     
     #main-wrapper[data-layout="vertical"][data-sidebartype="full"].show-sidebar .left-sidebar,
@@ -118,3 +118,49 @@ ul {
     -webkit-box-shadow: none !important;
     box-shadow: none !important;
 }
+
+.btn-success {
+    background-color: #28A219 !important;
+}
+
+.btn-success:hover {
+    background-color: #34c620 !important;
+}
+
+input::placeholder {
+    color: gray;
+    opacity: 0.7;
+    font-size: smaller;
+}
+
+@font-face {
+    font-family: 'MyFont1';
+    src: url('/fonts/notosans-bold.3ede5aff.woff2') format('woff2');
+    /* font-weight: normal;
+    font-style: normal; */
+}
+
+@font-face {
+    font-family: 'MyFont2';
+    src: url('/fonts/notosans-italic.1c1aaac9.woff2') format('woff2');
+    /* font-weight: normal;
+    font-style: normal; */
+}
+
+@font-face {
+    font-family: 'MyFont3';
+    src: url('/fonts/notosans-regular.2cb88a13.woff2') format('woff2');
+    /* font-weight: normal;
+    font-style: normal; */
+}
+
+@font-face {
+    font-family: 'MyFont4';
+    src: url('/fonts/notosans-semibold.df3e6dc4.woff2') format('woff2');
+    /* font-weight: normal;
+    font-style: normal; */
+}
+
+/* body {
+    font-family: 'MyFont', sans-serif;
+} */
