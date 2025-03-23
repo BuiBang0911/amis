@@ -1,5 +1,5 @@
-<div class="container pt-3 pb-5 w-100 m-auto" >
-    <div class="d-flex container mb-2   ">
+<div class="container-fluid pt-3 pb-5 w-100 m-auto" >
+    <div class="d-flex container-fluid mb-2   ">
         <h3 class="" style="font-family: 'MyFont1', sans-serif; font-size: 20px;">Nhân viên</h3>
             <a class="btn btn-success d-flex ms-auto border text-center justify-content-center align-item-center p-2" (click)="openCreateEmployeeModal()" style="font-size: 14px;">
                 Thêm mới nhân viên
@@ -7,15 +7,20 @@
         <create-employee #createEmployee></create-employee>
     </div>
     <div class=" py-2" style="background-color: #ffffff; border-radius: 4px;">
-        <div class="d-flex justify-content-end container my-2 ">
+        <div class="d-flex justify-content-end container-fluid my-2 ">
             <div class="border text-center input-search d-flex justify-content-center align-item-center" style="background-color: #ffffff; height: 30px;" >
                 <input class="border-0 px-1" type="text" [(ngModel)]="searchQuery" (keydown.enter)="onSearch()" style="height: 24px !important; padding-top: 2px;"   placeholder="Tìm theo mã, tên nhân viên">
-                <a class="btn" (click)="onSearch()">X</a>
+                <a class="btn p-0 me-1 btn-search" (click)="onSearch()" style="box-sizing: border-box;">
+                    <svg width="16px" height="16px" viewBox="955 30 24 24" >
+                        <path xmlns="http://www.w3.org/2000/svg" id="Path_11052-7" data-name="Path 11052" class="cls-21" d="M965,49a9,9,0,1,1,9-9A9,9,0,0,1,965,49Zm0-16a7,7,0,1,0,7,7A7,7,0,0,0,965,33Z"/>
+                        <path xmlns="http://www.w3.org/2000/svg" id="Path_11053-7" data-name="Path 11053" class="cls-21" d="M977.7,51.3,973.4,47a9.27,9.27,0,0,1-1.4,1.4l4.3,4.3a1,1,0,0,0,1.4-1.4Z"/>
+                    </svg>
+                </a>
             </div>
         </div>
-        <div class="container mt-4">
+        <div class="mt-4 table-container">
             <table class="table table-bordered table-striped mb-0 w-100">
-                <thead class="table-dark">
+                <thead class="table-header">
                     <tr class="">
                         <th class="col">MÃ NHÂN VIÊN</th>
                         <th class="col">TÊN NHÂN VIÊN</th>
@@ -55,53 +60,56 @@
                   </tbody>              
             </table>
         </div>
-        <div class="container d-flex" style="font-family: 'MyFont', sans-serif; font-size: smaller !important;">
-            <div class="text-center" style="font-size: small;">
-                Tổng số: <span class="fw-bolder ">{{totalRecords}}</span> bản ghi
-            </div>
-            <div ngbDropdown class="d-flex mt-3 justify-content-end ms-auto dropdown-paging" >
-                <button class="btn  custom-dropdown" id="dropdownMenu" ngbDropdownToggle >
-                  {{pageSize}} bản ghi trên 1 trang
-                </button>
-                <div class="custom-dropdown-menu" ngbDropdownMenu aria-labelledby="dropdownMenu">
-                  <button ngbDropdownItem (click)="setPageSize(10)">10 bản ghi trên 1 trang</button>
-                  <button ngbDropdownItem (click)="setPageSize(20)">20 bản ghi trên 1 trang</button>
-                  <button ngbDropdownItem (click)="setPageSize(50)">50 bản ghi trên 1 trang</button>
-                  <button ngbDropdownItem (click)="setPageSize(100)">100 bản ghi trên 1 trang</button>
+        <div class="container-fluid d-block d-lg-flex" style="font-family: 'MyFont', sans-serif; font-size: smaller !important;">
+            <div class="d-flex" style="flex: 1;">
+                <div class="text-center" style="font-size: small;">
+                    Tổng số: <span class="fw-bolder ">{{totalRecords}}</span> bản ghi
                 </div>
-                <div class="d-flex page-number text-center"  >
-                    <a class="btn px-2" (click)="prePageNumber()">Trước</a>
-                    <div *ngIf="totalPages <= 4; else TPM4">
-                        <a class="btn" *ngFor="let number of pageArray" [ngClass]="{'border fw-bold': number === pageNumber}" (click)="nextToPageNumber(number)">{{number}}</a>
+                <div ngbDropdown class="d-flex mt-3 justify-content-end ms-auto dropdown-paging text-center align-items-center" >
+                    <button class="btn custom-dropdown" id="dropdownMenu" ngbDropdownToggle >
+                      {{pageSize}} bản ghi trên 1 trang
+                    </button>
+                    <div class="custom-dropdown-menu" ngbDropdownMenu aria-labelledby="dropdownMenu">
+                      <button ngbDropdownItem (click)="setPageSize(10)">10 bản ghi trên 1 trang</button>
+                      <button ngbDropdownItem (click)="setPageSize(20)">20 bản ghi trên 1 trang</button>
+                      <button ngbDropdownItem (click)="setPageSize(50)">50 bản ghi trên 1 trang</button>
+                      <button ngbDropdownItem (click)="setPageSize(100)">100 bản ghi trên 1 trang</button>
                     </div>
-                    <ng-template #TPM4>
-                        <div *ngIf="pageNumber <=2; else PNT3">
-                            <a class="btn" [ngClass]="{'border fw-bold': 1 === pageNumber}" (click)="nextToPageNumber(1)" style="font-family: 'MyFont', sans-serif; font-size: smaller !important;">1</a>
-                            <a class="btn" [ngClass]="{'border fw-bold': 2 === pageNumber}" (click)="nextToPageNumber(2)">2</a>
-                            <a class="btn" [ngClass]="{'border fw-bold': 3 === pageNumber}" (click)="nextToPageNumber(3)">3</a>
+                </div>
+            </div>
+            
+            <div class=" d-flex page-number text-center justify-content-center align-items-center ms-auto" style="padding-top: 14px;" >
+                <a class="btn px-2 py-0d-flex " (click)="prePageNumber()">Trước</a>
+                <div *ngIf="totalPages <= 4; else TPM4">
+                    <a class="btn" *ngFor="let number of pageArray" [ngClass]="{'border fw-bold': number === pageNumber}" (click)="nextToPageNumber(number)">{{number}}</a>
+                </div>
+                <ng-template #TPM4>
+                    <div *ngIf="pageNumber <=2; else PNT3">
+                        <a class="btn" [ngClass]="{'border fw-bold': 1 === pageNumber}" (click)="nextToPageNumber(1)" style="font-family: 'MyFont', sans-serif; font-size: smaller !important;">1</a>
+                        <a class="btn" [ngClass]="{'border fw-bold': 2 === pageNumber}" (click)="nextToPageNumber(2)">2</a>
+                        <a class="btn" [ngClass]="{'border fw-bold': 3 === pageNumber}" (click)="nextToPageNumber(3)">3</a>
+                        <span style="padding-top: 6px;">...</span>
+                        <a class="btn" [ngClass]="{'border fw-bold': totalPages === pageNumber}" (click)="nextToPageNumber(totalPages)">{{totalPages}}</a>
+                    </div>
+                    <ng-template #PNT3>
+                        <div *ngIf="pageNumber + 2 >= totalPages; else MPN">
+                            <a class="btn" [ngClass]="{'border fw-bold': 1 === pageNumber}" (click)="nextToPageNumber(1)">1</a>
                             <span style="padding-top: 6px;">...</span>
+                            <a class="btn" [ngClass]="{'border fw-bold': totalPages-2 === pageNumber}" (click)="nextToPageNumber(totalPages-2)">{{totalPages-2}}</a>
+                            <a class="btn" [ngClass]="{'border fw-bold': totalPages-1 === pageNumber}" (click)="nextToPageNumber(totalPages-1)">{{totalPages-1}}</a>
                             <a class="btn" [ngClass]="{'border fw-bold': totalPages === pageNumber}" (click)="nextToPageNumber(totalPages)">{{totalPages}}</a>
                         </div>
-                        <ng-template #PNT3>
-                            <div *ngIf="pageNumber + 2 >= totalPages; else MPN">
-                                <a class="btn" [ngClass]="{'border fw-bold': 1 === pageNumber}" (click)="nextToPageNumber(1)">1</a>
-                                <span style="padding-top: 6px;">...</span>
-                                <a class="btn" [ngClass]="{'border fw-bold': totalPages-2 === pageNumber}" (click)="nextToPageNumber(totalPages-2)">{{totalPages-2}}</a>
-                                <a class="btn" [ngClass]="{'border fw-bold': totalPages-1 === pageNumber}" (click)="nextToPageNumber(totalPages-1)">{{totalPages-1}}</a>
-                                <a class="btn" [ngClass]="{'border fw-bold': totalPages === pageNumber}" (click)="nextToPageNumber(totalPages)">{{totalPages}}</a>
-                            </div>
-                            <ng-template #MPN>
-                                <a class="btn" [ngClass]="{'border fw-bold': 1 === pageNumber}" (click)="nextToPageNumber(1)">1</a>
-                                <span style="padding-top: 6px;">...</span>
-                                <a class="btn border fw-bold" >{{pageNumber}}</a>
-                                <a class="btn" (click)="nextPageNumber()">{{pageNumber + 1}}</a>
-                                <span style="padding-top: 6px;">...</span>
-                                <a class="btn" (click)="nextToPageNumber(totalPages)">{{totalPages}}</a>
-                            </ng-template>
+                        <ng-template #MPN>
+                            <a class="btn" [ngClass]="{'border fw-bold': 1 === pageNumber}" (click)="nextToPageNumber(1)">1</a>
+                            <span style="padding-top: 6px;">...</span>
+                            <a class="btn border fw-bold" >{{pageNumber}}</a>
+                            <a class="btn" (click)="nextPageNumber()">{{pageNumber + 1}}</a>
+                            <span style="padding-top: 6px;">...</span>
+                            <a class="btn" (click)="nextToPageNumber(totalPages)">{{totalPages}}</a>
                         </ng-template>
                     </ng-template>
-                    <a class="btn px-2" (click)="nextPageNumber()" >Sau</a>
-                </div>
+                </ng-template>
+                <a class="btn px-2" (click)="nextPageNumber()" >Sau</a>
             </div>
         </div>
     </div>
@@ -201,6 +209,15 @@
 
     .page-number .btn:active {
         color: #28A219;
-        border: 0;
+        border-color: #ffffff;
+    }
+
+    .btn-search:active {
+        border-color: #FFFFFF;
+        fill:#28A219;
+    }
+    .table-container {
+        overflow-x: auto;
+        max-width: 100%;
     }
 </style>

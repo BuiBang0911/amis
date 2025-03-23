@@ -1,8 +1,8 @@
 <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full" data-sidebar-position="fixed" data-header-position="fixed">
 
-    <div class="left-sidebar text-white p-3 vh-100" style="min-width: 250px; background-color: #393A3E;">
-        <div class="">
-            <svg width="24px" height="24px" viewBox="1153 30 24 24" stroke="#393A3E" fill="white" style="margin: 5px 16px 0 16px;">
+    <div class="left-sidebar text-white p-3 vh-100" #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed" [horizontal]="false"  style="min-width: 250px; background-color: #393A3E;">
+        <div class="d-flex justify-content-center">
+            <svg class="" width="24px" height="24px" viewBox="1153 30 24 24" stroke="#393A3E" fill="white" style="margin: 9px 16px 0 16px;">
                 <path xmlns="http://www.w3.org/2000/svg" id="Path_81-2" data-name="Path 81" class="cls-469" d="M1157,32h4v4h-4Z"/>
                 <path xmlns="http://www.w3.org/2000/svg" id="Path_82-2" data-name="Path 82" class="cls-469" d="M1163,32h4v4h-4Z"/>
                 <path xmlns="http://www.w3.org/2000/svg" id="Path_83-2" data-name="Path 83" class="cls-469" d="M1169,32h4v4h-4Z"/>
@@ -14,7 +14,10 @@
                 <path xmlns="http://www.w3.org/2000/svg" id="Path_87-2" data-name="Path 87" class="cls-469" d="M1157,44h4v4h-4Z"/>
             </svg>
             <img src="/image/Logo_Module_TiengViet_White.66947422.svg" alt="" style="width: 100px;">
-
+            <div class="d-flex justify-content-end ms-auto pt-0">
+                <a class="btn m-0 ms-auto text-white border border-circle" (click)="collapse.toggle()" aria-label="Close" style="border-radius: 100%;">X</a>
+            </div>
+            
         </div>
         <ul class="nav flex-column py-3 ">
 
@@ -59,11 +62,18 @@
     <div class="body-wrapper ">
         <div class="app-header" style="background-color: #F4F5F7;">
             <nav class="navbar navbar-expand-lg navbar-light d-flex p-3" style="background-color: #ffffff;">
-                <svg width="24px" height="24px" viewBox="843 30 24 24" style="margin-right: 6px;">
-                    <path xmlns="http://www.w3.org/2000/svg" id="Rectangle_1550-2" data-name="Rectangle 1550" class="cls-61" d="M848,35h14a.94.94,0,0,1,1,1h0a.94.94,0,0,1-1,1H848a.94.94,0,0,1-1-1h0A.94.94,0,0,1,848,35Z"/>    
-                    <path xmlns="http://www.w3.org/2000/svg" id="Rectangle_1551-2" data-name="Rectangle 1551" class="cls-61" d="M848,41h14a.94.94,0,0,1,1,1h0a.94.94,0,0,1-1,1H848a.94.94,0,0,1-1-1h0A.94.94,0,0,1,848,41Z"/>
-                    <path xmlns="http://www.w3.org/2000/svg" id="Rectangle_1552-2" data-name="Rectangle 1552" class="cls-61" d="M848,47h14a.94.94,0,0,1,1,1h0a.94.94,0,0,1-1,1H848a.94.94,0,0,1-1-1h0A.94.94,0,0,1,848,47Z"/>
-                </svg>
+                <li class="nav-item d-block">
+                    <a class="btn btn-toggle"  (click)="collapse.toggle()"
+                    [attr.aria-expanded]="!isCollapsed"
+                    aria-controls="collapseExample">
+                        <svg width="24px" height="24px" viewBox="843 30 24 24" style="margin-right: 6px;">
+                            <path xmlns="http://www.w3.org/2000/svg" id="Rectangle_1550-2" data-name="Rectangle 1550" class="cls-61" d="M848,35h14a.94.94,0,0,1,1,1h0a.94.94,0,0,1-1,1H848a.94.94,0,0,1-1-1h0A.94.94,0,0,1,848,35Z"/>    
+                            <path xmlns="http://www.w3.org/2000/svg" id="Rectangle_1551-2" data-name="Rectangle 1551" class="cls-61" d="M848,41h14a.94.94,0,0,1,1,1h0a.94.94,0,0,1-1,1H848a.94.94,0,0,1-1-1h0A.94.94,0,0,1,848,41Z"/>
+                            <path xmlns="http://www.w3.org/2000/svg" id="Rectangle_1552-2" data-name="Rectangle 1552" class="cls-61" d="M848,47h14a.94.94,0,0,1,1,1h0a.94.94,0,0,1-1,1H848a.94.94,0,0,1-1-1h0A.94.94,0,0,1,848,47Z"/>
+                        </svg>
+                    </a>
+                </li>
+                
                 <div style="font-family: 'MyFont1', sans-serif; font-size: 13px; font-weight: 300;">
                     CÔNG TY THHH SẢN XUẤT - THƯƠNG MẠI - DỊCH VỤ QUI PHÚC
                 </div>
@@ -109,4 +119,9 @@
         stroke-width: 1;
         margin-bottom: 5px;
     }
+
+    .btn-toggle {
+        border: 0;
+    }
+
 </style>

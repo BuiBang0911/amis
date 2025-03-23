@@ -105,7 +105,7 @@ export class AppEmployeeComponent implements OnInit{
 
   nextToPageNumber(idx: number): void {
     this.pageNumber = idx;
-    this.fetchData();
+    this.Search();
     console.log(this.pageNumber)
   }
 
