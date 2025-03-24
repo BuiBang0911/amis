@@ -16,7 +16,7 @@
                         </div>
                     </div>
                     <div class="col-8">
-                        <label for="name">Tên <span class="text-danger">*</span></label>
+                        <label for="name">Tên <span class="text-danger">*</span></label>    
                         <input type="text"  [(ngModel)]="employee.name" name="name"  class="w-100" #name="ngModel" required>
                         <div *ngIf="isSubmit || (name.invalid && (name.dirty || name.touched))" class="text-center position-relative">
                             <div class="error-input" *ngIf="name.hasError('required')">Tên không được để trống.</div>
@@ -26,10 +26,10 @@
                 <div class="" style="margin-bottom: 4px;">
                     <label for="">Đơn vị <span class="text-danger">*</span></label>
                     <select class="w-100"  [(ngModel)]="employee.department" name="department" #department="ngModel" required>
-                        <option value="AP001">Nhân viên</option>
-                        <option value="AP002">Công nhân</option>
-                        <option value="AP003">Trưởng ca</option>
-                        <option value="AP003">Trưởng nhóm</option>
+                        <option value="HR">HR</option>
+                        <option value="IT">IT</option>
+                        <option value="Kế toán">Kế toán</option>
+                        <option value="Kinh doanh">Kinh doanh</option>
                     </select>
                     <div *ngIf="isSubmit || (department.invalid && (department.dirty || department.touched))" class="text-center position-relative">
                         <div class="error-input" *ngIf="department.hasError('required')">Đơn vị không được để trống.</div>
@@ -50,15 +50,15 @@
                         <label for="">Giới tính</label>
                         <div class="">
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" [ngModelOptions]="{standalone: true}" [(ngModel)]="employee.sex" name="sex" value="male" style="margin-top: 6px;">
+                                <input class="form-check-input" type="radio" [ngModelOptions]="{standalone: true}" [(ngModel)]="employee.sex" name="sex" value="Nam" style="margin-top: 6px;">
                                 <label class="form-check-label" for="male" style="font-weight: normal; font-size: medium;">Nam</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" [ngModelOptions]="{standalone: true}" [(ngModel)]="employee.sex" name="sex" value="female" style="margin-top: 6px;">
-                                <label class    ="form-check-label" for="female" style="font-weight: normal; font-size: medium;">Nữ</label>
+                                <input class="form-check-input" type="radio" [ngModelOptions]="{standalone: true}" [(ngModel)]="employee.sex" name="sex" value="Nữ" style="margin-top: 6px;">
+                                <label class="form-check-label" for="female" style="font-weight: normal; font-size: medium;">Nữ</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" [ngModelOptions]="{standalone: true}" [(ngModel)]="employee.sex" name="sex" value="other" style="margin-top: 6px;">
+                                <input class="form-check-input" type="radio" [ngModelOptions]="{standalone: true}" [(ngModel)]="employee.sex" name="sex" value="Khác" style="margin-top: 6px;">
                                 <label class="form-check-label" for="other" style="font-weight: normal; font-size: medium;">Khác</label>
                             </div>
                         </div>
@@ -117,7 +117,7 @@
             <a class="btn border my-0" style="width: 80px;" (click)="CloseModal()">Hủy</a>
             <div class="ms-auto my-0">
                 <a class="btn border my-0 me-1" style="width: 80px" (click)="SaveModal()">Cất</a>
-                <button type="submit" class="btn btn-primary my-0" >Cất và thêm</button>
+                <button type="submit" class="btn btn-primary my-0" >Cất và sửa</button>
             </div>
         </div>
     </form>

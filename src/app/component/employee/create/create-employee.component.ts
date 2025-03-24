@@ -19,14 +19,6 @@ import { WarningModalComponent } from "../../common/warning-modal/warning-modal.
 
 export class CreateEmployeeComponent implements AfterViewInit{
     @ViewChild('createEmployeeModal', { static: false }) modalElement!: ElementRef<any>;
-    @ViewChild('codeInputElement', { static: false })
-    set codeInputElement(element: ElementRef<HTMLInputElement>) {
-        if(element) {
-          element.nativeElement.focus()
-        }
-     }
-    
-
 
     isSubmit: boolean = false;
     messageError: string = "";
@@ -38,17 +30,8 @@ export class CreateEmployeeComponent implements AfterViewInit{
     ngAfterViewInit(): void {
         if (this.modalElement?.nativeElement) {
             this.modalService.open(this.modalElement.nativeElement, { size: 'lg', centered: true });
-        } else {
-            console.error("Modal element not found!!!");
+            console.log(111111111111111111111111)
         }
-
-        
-        // console.log(this._inputElement)
-        // if (this._inputElement) {
-        //     this._inputElement.nativeElement.focus();
-        //   } else {
-        //     console.error('Không tìm thấy phần tử #_inputElement');
-        //   }
     }
     
     employee: EmployeeResponse = {  
@@ -83,9 +66,7 @@ export class CreateEmployeeComponent implements AfterViewInit{
 
     }
 
-    CloseModal() {
-        console.log(888)
-        this.modalService.dismissAll();
+    ReloadForm() {
         this.employee.name= "";
         this.employee.code= "",
         this.employee.sex= "",
@@ -104,42 +85,55 @@ export class CreateEmployeeComponent implements AfterViewInit{
         this.employee.address= ""
     }
 
+    CloseModal() {
+        this.modalService.dismissAll();
+        this.ReloadForm();
+    }
+
     SaveModal() {
-        console.log(this.employee.birthday);
         this.modalService.dismissAll();
     }
 
     onSubmit(form: any): void {
-        if (form.invalid) {
-            console.log('invalid form');
-            this.isSubmit = true;
-            return;
-        }
-        var modalRef = this.modalService.open(ConfirmDialogComponent);
-        modalRef.componentInstance.message = 'Bạn có chắc chắn muốn thêm?';
-        modalRef.result.then(
-            (result) => {
-                if(result === 'confirm') {
-                    this.apiService.CreateEmployee(this.employee).subscribe({
-                        next: (response) => {
-                            this.SaveModal();
-                            this.messageError = '';
-                            console.log('Tạo thành công:', response);
+        this.apiService.isExistCode(this.employee.code).subscribe({
+            next: (response) => {
+                if(response == true) {
+                    this.messageError = `Mã nhân viên <${this.employee.code}> đã tồn tại trong hệ thống, vui lòng kiểm tra lại`
+                    var modalWarning = this.modalService.open(WarningModalComponent);
+                    modalWarning.componentInstance.message = this.messageError;
+                } else {
+                    if (form.invalid) {
+                        console.log('invalid form');
+                        this.isSubmit = true;
+                        return;
+                    }
+                    var modalRef = this.modalService.open(ConfirmDialogComponent);
+                    modalRef.componentInstance.message = 'Bạn có chắc chắn muốn thêm?';
+                    modalRef.result.then(
+                        (result) => {
+                            if(result === 'confirm') {
+                                this.apiService.CreateEmployee(this.employee).subscribe({
+                                    next: (response) => {
+                                        this.CloseModal();
+                                        //this.messageError = '';
+                                        console.log('Tạo thành công:', response);
+                                    },
+                                    error: (err) => {
+                                        console.error('Lỗi khi tạo:', err);
+                                        // this.messageError = err.error.message;
+                                        
+                                    }
+                                });
+                                this.isSubmit = false;
+                            }
                         },
-                        error: (err) => {
-                            console.error('Lỗi khi tạo:', err);
-                            this.messageError = err.error.message;
-                            var modalWarning = this.modalService.open(WarningModalComponent);
-                            console.log(err.error.message)
-                            modalWarning.componentInstance.message = this.messageError;
+                        (reason) => {
+                            console.log('Hủy bỏ', reason);
                         }
-                    });
-                    this.isSubmit = false;
+                    )
                 }
-            },
-            (reason) => {
-                console.log('Hủy bỏ', reason);
             }
-        )
+        })
+        
     }
 }

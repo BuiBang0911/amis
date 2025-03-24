@@ -1,10 +1,26 @@
-<div class="modal-header">
-    <h5 class="modal-title text-danger">Lỗi</h5>
-    <button type="button" class="btn-close" aria-label="Close" (click)="dismiss()"></button>
+<div class="modal-header border-0">
+    <!-- <button type="button" class="btn-close" aria-label="Close" (click)="dismiss()"></button> -->
   </div>
-  <div class="modal-body">
+  <div class="modal-body d-flex">
+    <svg class="icon mx-2" width="48px" height="48px" viewBox="592 456 48 48">
+      <path xmlns="http://www.w3.org/2000/svg" id="Path_23066" data-name="Path 23066" class="cls-39" d="M614.5,464.83l-15.67,31.34a1.65,1.65,0,0,0,.8,2.18,1.69,1.69,0,0,0,.7.15h31.34a1.69,1.69,0,0,0,1.63-1.74,1.74,1.74,0,0,0-.13-.59L617.5,464.83a1.72,1.72,0,0,0-2.35-.65A1.76,1.76,0,0,0,614.5,464.83Z"/>
+      <circle xmlns="http://www.w3.org/2000/svg" id="Ellipse_1812" data-name="Ellipse 1812" cx="616" cy="491" r="1"/>
+      <path xmlns="http://www.w3.org/2000/svg" id="Rectangle_7823" data-name="Rectangle 7823" d="M616,475h0a1,1,0,0,1,1,1v11a1,1,0,0,1-1,1h0a1,1,0,0,1-1-1V476A1,1,0,0,1,616,475Z"/>
+    </svg>
     <p>{{ message }}</p>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-danger" (click)="dismiss()">Đóng</button>
+    <button type="button" class="btn text-white fw-bold" style="background-color: #28A219;" (click)="dismiss()">Đồng ý</button>
   </div>
+
+  <style>
+    .cls-39 {
+        fill: #fce100;
+        stroke: #ffb900;
+    }
+
+    p {
+      font-family: 'MyFont', sans-serif;
+      font-size: normal;
+    }
+  </style>

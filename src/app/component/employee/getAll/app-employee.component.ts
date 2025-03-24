@@ -53,7 +53,6 @@ export class AppEmployeeComponent implements OnInit{
               this.totalPages = res.totalPages;
               this.totalRecords = res.totalRecords;
               this.pageArray = this.utilsService.createRangeArray(1, this.totalPages);
-              console.log(this.pageArray); // Log dữ liệu để kiểm tra
             },
             error: (err) => {
               console.error('Có lỗi khi gọi API:', err); // Xử lý lỗi

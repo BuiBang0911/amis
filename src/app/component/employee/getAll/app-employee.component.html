@@ -17,6 +17,14 @@
                     </svg>
                 </a>
             </div>
+            <a class="ms-3 d-flex align-items-center" (click)="Search()" style="">
+                <svg class="reload" width="24px" height="24px" viewBox="1023 30 24 24" fill="#ffffff" stroke="black" >
+                    <path xmlns="http://www.w3.org/2000/svg" class="cls-321" d="M1033,50.8a10,10,0,0,1,0-19.6"/>
+                    <path xmlns="http://www.w3.org/2000/svg" class="cls-321" d="M1037,31.2a10,10,0,0,1,0,19.6"/>
+                    <polyline xmlns="http://www.w3.org/2000/svg" class="cls-321" points="1030 30 1033 31 1032 34"/>
+                    <polyline xmlns="http://www.w3.org/2000/svg" class="cls-321" points="1038 48 1037 51 1040 52"/>
+                </svg>
+            </a>
         </div>
         <div class="mt-4 table-container">
             <table class="table table-bordered table-striped mb-0 w-100">
@@ -219,5 +227,12 @@
     .table-container {
         overflow-x: auto;
         max-width: 100%;
+        min-height: 400px;
     }
+
+    .reload:hover {
+        transform: rotate(180deg);
+        transition: transform 0.3s ease-in-out; 
+    }
+
 </style>

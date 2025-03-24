@@ -34,8 +34,6 @@ export class UpdateEmployeeComponent implements AfterViewInit{
         if (this.modalElement?.nativeElement) {
             console.log(this.employee.birthday);
             this.modalService.open(this.modalElement.nativeElement, { size: 'lg', centered: true });
-          } else {
-            console.error("Modal element not found!");
           }
     }
 
@@ -65,7 +63,7 @@ export class UpdateEmployeeComponent implements AfterViewInit{
             return;
         }
         var modalRef = this.modalService.open(ConfirmDialogComponent);
-        modalRef.componentInstance.message = 'Bạn có chắc chắn muốn thêm?';
+        modalRef.componentInstance.message = 'Bạn có chắc chắn muốn sửa?';
         modalRef.result.then(
             (result) => {
                 if(result === 'confirm') {

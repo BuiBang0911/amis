@@ -40,4 +40,8 @@ export class ApiService {
     console.log(`${this.apiUrlBase}/Employee/search?code=${query}&PageNumber=${pageNumber}&PageSize=${pageSize}`)
     return this.http.get<any>(`${this.apiUrlBase}/Employee/search?code=${query}&PageNumber=${pageNumber}&PageSize=${pageSize}`);
   }
+
+  isExistCode(code: string): Observable<any> {
+    return this.http.get<any>(`${this.apiUrlBase}/Employee/isExistCode/${code}`);
+  }
 }

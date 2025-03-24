@@ -1,7 +1,7 @@
 export interface EmployeeResponse {
     id: number,
-    name?: string,
-    code?: string,
+    name: string,
+    code: string,
     sex?: string,
     birthday: string,
     identificationCard: string,
