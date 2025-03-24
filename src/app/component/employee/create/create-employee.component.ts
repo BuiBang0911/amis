@@ -39,7 +39,7 @@ export class CreateEmployeeComponent implements AfterViewInit{
         name: "",
         code: "",
         sex: "",
-        birthday: "",
+        birthday: null,
         identificationCard: "",
         position: "",
         accountNumber: "",
@@ -49,7 +49,7 @@ export class CreateEmployeeComponent implements AfterViewInit{
         phoneNumber: "", 
         placeOfIssue: "", 
         landlineNumber: "", 
-        dateOfIssue: "", 
+        dateOfIssue: null, 
         department: "", 
         address: ""
     };
@@ -70,7 +70,7 @@ export class CreateEmployeeComponent implements AfterViewInit{
         this.employee.name= "";
         this.employee.code= "",
         this.employee.sex= "",
-        this.employee.birthday= "",
+        this.employee.birthday = "",
         this.employee.identificationCard= "",
         this.employee.position= "",
         this.employee.accountNumber= "",
@@ -95,6 +95,7 @@ export class CreateEmployeeComponent implements AfterViewInit{
     }
 
     onSubmit(form: any): void {
+        console.log(this.employee);
         this.apiService.isExistCode(this.employee.code).subscribe({
             next: (response) => {
                 if(response == true) {
